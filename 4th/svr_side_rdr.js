@@ -48,12 +48,9 @@ http.createServer(function (req, res) {
         } else {
             console.log('method : ', method);
         }
-    } else if ( req.url == '/login'){
-        console.log('URL : ', url);
-        url = '/login.html';
-        res.end(fs.readFileSync(__dirname + url));
+        
     } else {
-        console.log('그리고 아무것도 일어나지 않았따-');
+        console.log('URL : ', url);
     }
     console.log('client 접속');
     
