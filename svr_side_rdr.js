@@ -70,59 +70,72 @@ const init_func = function (req, res) {
             console.log('Data Event');
         });
 
-        req.on('end', function(){
-            console.log('End Event');
-            console.log('cli_data : ', cli_data);
-            console.log('type은 ', typeof(cli_data));
-
-            var post = qs.parse(cli_data);            
-            console.log('JSON이 parse했어 : ', post);
-
-            var loginuser = userInfo.find(el => el['id'] == post.id);
-            console.log(loginuser); // { id: '조이', pw: '유이', name: '루이' }
-            //+ 인간적을 password도 확인해야되지 않을까
-
-            //* else로 왜 계속 빠질까
-            //if(typeof(loginsuser)=="undefined"|| loginuser == null || loginuser == ""){
-            if(typeof(loginsuser)!="undefined" && Object.keys(loginuser).length > 0){
-                fs.readFile(__dirname + pathname, 'UTF-8',
-                function(err, data){
-                    var conv_data = data.replace(/#id#/g, loginuser.id).replace(/#pw#/g, loginuser.pw);
-                    res.writeHead(200, {'Content-Type' : 'text/html'});
-                    res.write(conv_data);
-                    res.end();
-                    }
-                )
+        if(pathname == '/'){
+            res.end(fs.readFileSync(__dirname + url + 'login.html'));
+        } 
+        else if (pathname == '/index.html') {
+            req.on('end', function(){
+                console.log('End Event');
+                console.log('type은 ', typeof(cli_data));
+    
+                var post = qs.parse(cli_data);            
+                console.log('JSON이 parse했어 : ', post);
+    
+                var loginuser = userInfo.find(el => el['id'] == post.id);
                 console.log(loginuser); // { id: '조이', pw: '유이', name: '루이' }
                 console.log(typeof(loginuser));
-                console.log('이구간통과');
-            }else{
-                res.end(
-                    `
-                    <!DOCTYPE html>
-                    <html>
-                      <head>
-                        <meta charset="utf-8">
-                        <title>Error</title>
-                      </head>
-                      <body>
-                        <h1> Alert가 undefined </h1>
-                        <p> Alert창 닫기 시 다시 로그인창으로 </p>
-                      </body>
-                    </html> 
-                    `
-                );
-            }
-            /*
-            for (var index = 0; index < userInfo.length; index++) {
-                if(userInfo[index].id == obj_data['id'] ){
-                    res.end(``)
-                };
-            }    
-            res.end(``)
-            */
+                console.log(pathname);
+    
+                //* else로 왜 계속 빠질까
+                //if(typeof(loginsuser)=="undefined"|| loginuser == null || loginuser == ""){
+                if(typeof(loginsuser)!="undefined"){ 
 
-        });
+                    fs.readFile(__dirname + pathname, 'UTF-8',
+                    function(err, data){
+                        var conv_data = data.replace(/#id#/g, loginuser.id).replace(/#pw#/g, loginuser.pw);
+                        res.writeHead(200, {'Content-Type' : 'text/html'});
+                        res.write(conv_data);
+                        res.end();
+                        }
+                    )                         
+                    console.log('이구간통과');
+                    
+                }else{
+                    console.log('진짜else로왔다는증거');
+                    res.end(
+                        `
+                        <!DOCTYPE html>
+                        <html>
+                          <head>
+                            <meta charset="utf-8">
+                            <title>Error</title>
+                          </head>
+                          <body>
+                            <h1> Alert가 undefined </h1>
+                            <p> Alert창 닫기 시 다시 로그인창으로 </p>
+                          </body>
+                        </html> 
+                        `
+                    );
+                }
+                /*
+                for (var index = 0; index < userInfo.length; index++) {
+                    if(userInfo[index].id == obj_data['id'] ){
+                        res.end(``)
+                    };
+                }    
+                res.end(``)
+                */    
+            });
+        }
+        else if ( req.url == '/login')
+        {
+            url = '/login.html';
+            res.end(fs.readFileSync(__dirname + url));
+
+        } else {
+            console.log('그리고 아무것도 일어나지 않았따-');
+        }   
     }    
     console.log('client 접속');
     
