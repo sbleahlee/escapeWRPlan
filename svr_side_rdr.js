@@ -43,7 +43,6 @@ const init_func = function (req, res) {
                 console.log('End Event');
                     
                 var post = qs.parse(cli_data);  
-
                 var loginuser = userInfo.find(el => el['id'] == post.id);
 
                 if(loginuser!==undefined){   
