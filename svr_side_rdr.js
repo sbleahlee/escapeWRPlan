@@ -2,8 +2,6 @@ var http = require('http');
 var fs = require('fs');
 var qs = require('querystring')
 const paserurl = require('url');
-//const { notEqual } = require('assert');
-//const { isUndefined } = require('util');
 
 
 const userInfo = [
