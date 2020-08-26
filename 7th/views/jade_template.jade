@@ -1,0 +1,31 @@
+extends ./layout.jade
+
+block content
+    Head Book List
+    form(id='addbutton' action='/add')
+        button(onclick='test') Add
+
+    p --- List ----
+
+    each key, i in allList            
+        for val, k in key
+            case k
+                when "title"
+                    - var title = val
+                    - var des_bool = false
+                when "description"
+                    - var des = val
+                    - var des_bool = true
+                when "id"
+                    - var k_id = val
+                    - var des_bool = false
+                default
+                    - var des_bool = false
+                    
+            if des_bool
+                ul
+                    li #{title}, #{des} 
+                    form(action = '/listdesc' method = 'POST' id = 'dcrp')
+                        button(type = 'submit' name = 'des_id' value = k_id) Description
+                        button(type = 'submit' name = 'dlt_id' value = k_id) Delete
+                

@@ -1,0 +1,15 @@
+extends ./layout.jade
+
+block content
+    body
+        form(action = '/add_more' method = 'POST' id = 'addmore')
+            p
+                input(type = 'text' name = 'title' placeholder = 'Title')
+            p
+                textarea(name = 'description' placeholder = 'Description')
+            p
+                input(type = 'text' name = 'preview' placeholder = 'Preview')
+            p
+                input(type = 'text' name = 'pic' placeholder = 'Picture Link')
+            button(type='submit' name = 'bt' value = 'submit_add' ) Submit
+            button(type='submit' name = 'bt' value = 'cancel_add') Cancel
