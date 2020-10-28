@@ -33,6 +33,12 @@ import './App.css';
 
 //Component는 하나의 최상위 태그로 시작해야 함.
 
+var links = [
+  {id : 1, title:'TITLE1', desc:'DESC1'},
+  {id : 2, title:'TITLE2', desc:'DESC2'},
+  {id : 3, title:'TITLE3', desc:'DESC3'}
+]
+
 class App extends Component {
   //render전 constructor가 Component초기화 역할.
   constructor(props){
@@ -40,11 +46,11 @@ class App extends Component {
       //state값 초기화
     this.state={
       subject:{title:'WEB', sub:'World Wide Web'},
-      links:[
+      /* links:[
         {id : 1, title:'TITLE1', desc:'DESC1'},
         {id : 2, title:'TITLE2', desc:'DESC2'},
         {id : 3, title:'TITLE3', desc:'DESC3'}
-      ],
+      ], */
       table: {tr: 5, td : 3}
     }
   }
@@ -59,9 +65,10 @@ class App extends Component {
           sub = {this.state.subject.title}>
           </Subject>
         <Subject title = "REACT" sub = "For UI"></Subject>
-        <TDC data = {this.state.links}></TDC>
+        {/* <TDC data = {this.state.links}></TDC> */}
+        <TDC data = {links}></TDC>
         <Content title = "HTML" desc = "HTML is HyperText Markup Language."></Content>
-        <TBL data = {this.state.table}></TBL>
+        <div className = "tbl"><TBL data = {this.state.table}></TBL></div>
     </div>
     );
   }
