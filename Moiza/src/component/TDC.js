@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'React';
 
 class TDC extends Component{
     render(){

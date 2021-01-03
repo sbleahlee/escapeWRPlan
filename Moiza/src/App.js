@@ -24,7 +24,7 @@ function App() {
 }
  */
 
-import React, { Component } from 'react';
+import React, { Component } from 'React';
 import Subject from "./component/SJT";
 import TDC from "./component/TDC";
 import Content from "./component/CTT";
